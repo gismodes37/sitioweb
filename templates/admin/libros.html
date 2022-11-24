@@ -1,0 +1,121 @@
+{% include 'admin/cabecera.html' %}
+
+
+
+</br>
+<div class="container">
+    <div class="row">
+        <!--Area del formulario de datos del libro a descargar-->
+        <div class="col-md-5">
+            
+            <div class="card">
+                <div class="card-header">
+                    Datos del Libro
+                </div>
+            <div class="card-body">
+
+
+            <!-- FORMULARIO considerar siempre si se van a enviar archivos deve de estar la propiedad : enctype="multipart/form-data" -->
+                
+                <form action="/admin/libros/guardar" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                  <label for="txtNombre" class="form-label">Nombre :</label>
+                  <input 
+                    type="text"
+                    class="form-control" 
+                    name="txtNombre" 
+                    id="txtNombre" 
+                    aria-describedby="helpId" 
+                    placeholder="Escriba el nombre del libro ">
+                </div>
+
+                <!-- Input para subir una imagen-->
+                <div class="mb-3">
+                  <label for="txtImagen" class="form-label">Imagen :</label>
+                  <input 
+                    type="file"
+                    class="form-control" 
+                    name="txtImagen" 
+                    id="txtImagen" 
+                    aria-describedby="helpId" 
+                    placeholder="Seleccione la Imagen">
+                </div>
+
+                <div class="mb-3">
+                  <label for="txtUrl" class="form-label">URL Descarga :</label>
+                  <input 
+                    type="text"
+                    class="form-control" 
+                    name="txtUrl" 
+                    id="txtUrl" 
+                    aria-describedby="helpId"
+                    placeholder="Escriba la url de descarga">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Agregar</button>
+                
+                </form>
+            
+
+            </div>
+            <div class="card-footer text-muted">
+                
+            </div>
+</div>      
+
+
+        </div>
+        <!-- Area de la estructura de donde se mostraran los datos ingresados -->
+        <div class="col-md-7">
+
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">URL</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for libro in libros %}
+                    <tr class="">
+                        <td>{{ libro[0] }}</td>
+                        <td>{{ libro[1] }}</td>
+                        <td>
+
+                        <img src="/img/{{ libro[2] }}" class="img-fluid rounded-top"  alt="" width="50">
+                        
+                        </td>
+                        <th>{{ libro[3] }}</th>
+                        <th>
+                        <form action="/admin/libros/borrar" method="POST">
+                        
+                            <input value="{{ libro[0] }}" type="text" name="txtID" id="txtID" size="5px">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                        
+                        </th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+
+        </div>
+        
+    </div>
+</div>
+
+
+  
+
+  
+
+ 
+  
+
+{% include 'admin/pie.html' %}
